@@ -81,14 +81,10 @@
         "prefer-object-spread/prefer-object-spread": 2
     },
     "globals" : {
-        "__CLIENT__": true,
-        "__BUILD_NUMBER__": true,
-        "Perf": true,
         "Windows": true
     },
     "env": {
         "browser": true,
         "node": true,
-        "mocha": true
     }
 }
