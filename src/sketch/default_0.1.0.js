@@ -5,29 +5,25 @@ import p5 from 'p5';
 const MIN_RAD = 150;
 const MAX_RAD = 250;
 const ITEM_COLOR = 'red';
-const BG = 'rgba(50,50,50,.01)';
+const BG = 'rgba(50,50,50,.05)';
 const VELOCITY = 1;
 
 export default class Sketch extends p5 {
     
     constructor() {
         super();
-        console.log('Sketch');
+        console.log('Sketch [this:%o]', this);
 
-        this.setup = this.setup.bind(this);
-        this.draw = this.draw.bind(this);
+        this.setup = window.setup = this.setup.bind(this);
+        this.draw = window.draw = this.draw.bind(this);
         this.render = this.render.bind(this);
         this.increment = this.increment.bind(this);
-        this.windowResized = this.windowResized.bind(this);
-
-        window.addEventListener('resize', this.windowResized);
-
-        this.setup();
+        this.windowResized = window.windowResized = this.windowResized.bind(this);
     }
 
     setup() {
         console.log('setup', windowWidth, windowHeight);
-        createCanvas(windowHeight, windowWidth);
+        this.createCanvas(windowWidth, windowHeight, p5.WEBGL);
 
         this.bg = color(BG);
         this.itemColor = color(ITEM_COLOR);
@@ -42,17 +38,13 @@ export default class Sketch extends p5 {
     }
 
     render() {
-        if (this.frame === 1) {
-            window.dispatchEvent(new Event('resize'));
-        }
-
         let x = windowWidth / 2;
         let y = windowHeight / 2;
 
-        background(this.bg);
-        fill(this.itemColor);
-        line(this.itemColor);
-        ellipse(x, y, this.rad, this.rad);
+        this.background(this.bg);
+        this.fill(this.itemColor);
+        this.stroke(this.itemColor);
+        this.ellipse(x, y, this.rad, this.rad);
     }
 
     increment() {
@@ -67,12 +59,11 @@ export default class Sketch extends p5 {
         }
 
         this.frame++;
-        console.log('frame: %s, rad: %s', this.frame, this.rad);
     }
 
     // EVENTS
 
     windowResized() {
-        resizeCanvas(windowWidth, windowHeight);
+        this.resizeCanvas(windowWidth, windowHeight);
     }
 }
