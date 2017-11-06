@@ -10,23 +10,23 @@ const VELOCITY = 1;
 
 export default class Sketch extends p5 {
     
-    constructor() {
-        super();
+    constructor(sketch = ()=>{}, node = false, sync = false) {
+        super(sketch, node, sync);
         console.log('Sketch [this:%o]', this);
 
-        this.setup = window.setup = this.setup.bind(this);
-        this.draw = window.draw = this.draw.bind(this);
+        this.setup = this.setup.bind(this);
+        this.draw = this.draw.bind(this);
         this.render = this.render.bind(this);
         this.increment = this.increment.bind(this);
-        this.windowResized = window.windowResized = this.windowResized.bind(this);
+        this.windowResized = this.windowResized.bind(this);
     }
 
     setup() {
-        console.log('setup', windowWidth, windowHeight);
-        this.createCanvas(windowWidth, windowHeight, p5.WEBGL);
+        console.log('setup', this.windowWidth, this.windowHeight);
+        this.createCanvas(this.windowWidth, this.windowHeight, p5.WEBGL);
 
-        this.bg = color(BG);
-        this.itemColor = color(ITEM_COLOR);
+        this.bg = this.color(BG);
+        this.itemColor = this.color(ITEM_COLOR);
         this.rad = MIN_RAD;
         this.grow = true;
         this.frame = 0;
@@ -38,8 +38,8 @@ export default class Sketch extends p5 {
     }
 
     render() {
-        let x = windowWidth / 2;
-        let y = windowHeight / 2;
+        let x = this.windowWidth / 2;
+        let y = this.windowHeight / 2;
 
         this.background(this.bg);
         this.fill(this.itemColor);
@@ -64,6 +64,7 @@ export default class Sketch extends p5 {
     // EVENTS
 
     windowResized() {
-        this.resizeCanvas(windowWidth, windowHeight);
+        console.log('windowResized', this.windowWidth, this.windowHeight);
+        this.resizeCanvas(this.windowWidth, this.windowHeight);
     }
 }
