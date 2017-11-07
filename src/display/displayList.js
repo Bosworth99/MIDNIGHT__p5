@@ -11,11 +11,11 @@ export default class DisplayList {
     
         setState(newState) {
             this.state = { ...this.state, newState };
-            console.log('DisplayList.setState [this.state:%o]', this.state);
+            // console.log('DisplayList.setState [this.state:%o]', this.state);
         }
 
         register(item = {}) {
-            console.log('DisplayList.register [item:%o]', item);
+            // console.log('DisplayList.register [item:%o]', item);
             const { items } = this.state;
             item.id = `item_${items.length}`;
             items.push(item);
@@ -23,7 +23,7 @@ export default class DisplayList {
         }
 
         deregister(item = { id: null }) {
-            console.log('DisplayList.deregister [item:%o]', item);
+            // console.log('DisplayList.deregister [item:%o]', item);
             const { items } = this.state;
             this.setState({ items: [...items].filter(itm => !item.id === items.id) });
         }
@@ -45,7 +45,7 @@ export default class DisplayList {
             const { items } = this.state;
             items.forEach(item => item && item.destroy && typeof item.destroy === 'function' && item.destroy());
             items.length = 0;
-            
+
             this.setState({
                 items: [],
             })        
