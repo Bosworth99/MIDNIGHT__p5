@@ -17,7 +17,7 @@ export default class Sketch extends p5 {
         this.setup = this.setup.bind(this);
         this.draw = this.draw.bind(this);
         this.render = this.render.bind(this);
-        this.increment = this.increment.bind(this);
+        this.tick = this.tick.bind(this);
         this.windowResized = this.windowResized.bind(this);
     }
 
@@ -33,7 +33,7 @@ export default class Sketch extends p5 {
     }
 
     draw() {
-        this.increment();
+        this.tick();
         this.render();
     }
 
@@ -47,7 +47,7 @@ export default class Sketch extends p5 {
         this.ellipse(x, y, this.rad, this.rad);
     }
 
-    increment() {
+    tick() {
         this.rad = this.grow ? this.rad + VELOCITY : this.rad - VELOCITY;
 
         if (this.rad > MAX_RAD) {
