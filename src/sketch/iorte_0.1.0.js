@@ -4,9 +4,9 @@ import p5 from 'p5';
 import DisplayList from '../display/displayList';
 import DisplayItem from '../display/iorteta';
 
-const COUNT = 10;
-const MIN_RAD = 150;
-const MAX_RAD = 250;
+const COUNT = 25;
+const MIN_RAD = 100;
+const MAX_RAD = 300;
 const COLOR = 'red';
 const BG = 'rgba(50,50,50,.05)';
 const VELOCITY = 1;
@@ -19,6 +19,9 @@ export default class Iorte extends p5 {
 
         this.setup = this.setup.bind(this);
         this.draw = this.draw.bind(this);
+        this.setState = this.setState.bind(this);
+        this.initializeDisplayList = this.initializeDisplayList.bind(this);
+        this.populateDisplayList = this.populateDisplayList.bind(this);
 
         this.context = this;
         this.clearTimer = null;
@@ -69,7 +72,7 @@ export default class Iorte extends p5 {
 
     draw() {
         const { frame } = this.state;
-        console.log('Iorte.draw [frame:%o]', frame);
+        // console.log('Iorte.draw [frame:%o]', frame);
 
         this.tick();
         this.render();
