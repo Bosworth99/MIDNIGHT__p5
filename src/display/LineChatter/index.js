@@ -5,7 +5,8 @@ export default class LineChatter extends DisplayItem {
     constructor(props = {}) {
         super(props);
 
-        const { x, y } = props;
+        const x = this.ctx.random(0, this.ctx.windowWidth);
+        const y = this.ctx.random(0, this.ctx.windowHeight);
 
         this.state = {
             x1: x,
@@ -13,7 +14,8 @@ export default class LineChatter extends DisplayItem {
             x2: x,
             y2: y,
             clr: this.ctx.color('red'),
-            LEN: this.ctx.random(20, 300),
+            MIN: this.ctx.random(-300, -20),
+            MAX: this.ctx.random(20, 300),
             VEL: this.ctx.random(0.1, 1),
             grow: this.ctx.random(0, 10) > 5 ? true : false,
             rot: 0.1,
@@ -21,7 +23,7 @@ export default class LineChatter extends DisplayItem {
     }
 
     tick() {
-        const { x1, y1, VEL, LEN } = this.state;
+        const { x1, y1, VEL, MIN, MAX } = this.state;
         let { x2, y2, grow, rot } = this.state;
 
         if (grow) {
@@ -36,9 +38,9 @@ export default class LineChatter extends DisplayItem {
 
         const distance = this.ctx.dist( x1, y1, x2, y2 );
 
-        if (distance > LEN) {
+        if (distance > MAX) {
             grow = false;
-        } else if (distance < 10 ) {
+        } else if (distance < MIN ) {
             grow = true;
         }
 

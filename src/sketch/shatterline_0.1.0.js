@@ -4,7 +4,7 @@ import p5 from 'p5';
 import DisplayList from '../display/displayList';
 import DisplayItem from '../display/LineChatter';
 
-const COUNT = 100;
+const COUNT = 1;
 const BG = 'rgba(50, 50, 50, 0.2)';
 
 export default class ShatterLine extends p5 {
@@ -56,8 +56,6 @@ export default class ShatterLine extends p5 {
 
             const config = {
                 context,
-                x: this.random(0, this.windowWidth),
-                y: this.random(0, this.windowHeight),
             }
 
             this.displayList.register(new DisplayItem(config));
