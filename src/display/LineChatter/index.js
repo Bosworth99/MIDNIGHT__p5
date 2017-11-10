@@ -14,11 +14,10 @@ export default class LineChatter extends DisplayItem {
             x2: x,
             y2: y,
             clr: this.ctx.color('red'),
-            MIN: this.ctx.random(-300, -20),
-            MAX: this.ctx.random(20, 300),
+            MAX: this.ctx.random(10, 100),
             VEL: this.ctx.random(0.1, 1),
             grow: this.ctx.random(0, 10) > 5 ? true : false,
-            rot: 0.1,
+            rot: 1,
         }
     }
 
@@ -26,22 +25,28 @@ export default class LineChatter extends DisplayItem {
         const { x1, y1, VEL, MIN, MAX } = this.state;
         let { x2, y2, grow, rot } = this.state;
 
+        let distance;
         if (grow) {
             x2 = x2 + VEL;
             y2 = y2 + VEL;
-            rot = this.ctx.radians(rot + VEL);
+            rot = rot + VEL;
+
+            distance = this.ctx.dist( x1, y1, x2, y2 );
+
+            if (distance > MAX) {
+                grow = false;
+            }
+
         } else {
             x2 = x2 - VEL;
             y2 = y2 - VEL;
-            rot = this.ctx.radians(rot - VEL);
-        }
+            rot = rot - VEL;
 
-        const distance = this.ctx.dist( x1, y1, x2, y2 );
+            distance = this.ctx.dist(x1, y1, x2, y2);
 
-        if (distance > MAX) {
-            grow = false;
-        } else if (distance < MIN ) {
-            grow = true;
+            if (distance > MAX ) {
+                grow = true;
+            }
         }
 
         this.setState({
@@ -54,7 +59,7 @@ export default class LineChatter extends DisplayItem {
         this.ctx.push();
         this.ctx.stroke(clr);
         this.ctx.line(x1, y1, x2, y2);
-        this.ctx.rotate(rot)
+        this.ctx.rotate(rot*10);
         this.ctx.pop();
     }
 
