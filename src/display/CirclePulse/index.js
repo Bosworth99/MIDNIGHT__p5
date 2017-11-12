@@ -6,32 +6,34 @@ export default class CirclePulse extends DisplayItem {
             super(props);
             // console.log('DisplayItem.constructor', props);
 
-            const { x, y, COLOR, MIN_RAD, MAX_RAD, VELOCITY } = props;
+            const x = this.ctx.random(0, this.ctx.windowWidth);
+            const y = this.ctx.random(0, this.ctx.windowHeight);
+            const MIN = 100;
+            const MAX = 300;
 
             this.state = {
                 x: x || 100,
                 y: y || 100,
-                rad: this.ctx.random(MIN_RAD * .5, MAX_RAD * .5),
-                COLOR,
-                clr: this.ctx.color(COLOR),
-                MIN_RAD: this.ctx.random(MIN_RAD - (MIN_RAD * .5), MIN_RAD + (MIN_RAD * .5)),
-                MAX_RAD: this.ctx.random(MAX_RAD - (MAX_RAD * .5), MAX_RAD + (MAX_RAD * .5)),
-                VELOCITY: this.ctx.random(0.5, 2),
+                rad: this.ctx.random(MIN * .5, MAX * .5),
+                clr: this.ctx.color('red'),
+                MIN: this.ctx.random(MIN - (MIN * .5), MIN + (MIN * .5)),
+                MAX: this.ctx.random(MAX - (MAX * .5), MAX + (MAX * .5)),
+                VEL: this.ctx.random(0.5, 2),
                 grow: this.ctx.random(10) > 5 ? true : false,
             }
         }
 
         tick() {
-            const { x, y, MIN_RAD, MAX_RAD, VELOCITY }  = this.state;
+            const { x, y, MIN, MAX, VEL }  = this.state;
             let { rad, grow } = this.state;
 
-            rad = grow ? rad + VELOCITY : rad - VELOCITY;
+            rad = grow ? rad + VEL : rad - VEL;
 
-            if (rad > MAX_RAD) {
+            if (rad > MAX) {
                 grow = false;
             };
 
-            if (rad < MIN_RAD) {
+            if (rad < MIN) {
                 grow = true;
             }
 
@@ -45,8 +47,7 @@ export default class CirclePulse extends DisplayItem {
             const { x, y, rad, clr } = this.state;
 
             this.ctx.fill(clr);
-            this.ctx.strokeWeight(5);
-            this.ctx.stroke('black');
+            this.ctx.stroke('red');
             this.ctx.ellipse(x, y, rad, rad);
         }
 

@@ -47,11 +47,6 @@ export default class LineChatter extends DisplayItem {
             }
         }
 
-        // if (distance < 1) {
-        //     x1 = x2 = this.ctx.random(0, this.ctx.windowWidth);
-        //     y1 = y2 = this.ctx.random(0, this.ctx.windowHeight);
-        // }
-
         this.setState({
             x1, y1, x2, y2, grow, rot,
         });
