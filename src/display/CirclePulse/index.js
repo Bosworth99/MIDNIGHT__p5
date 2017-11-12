@@ -16,13 +16,13 @@ export default class CirclePulse extends DisplayItem {
             this.state = {
                 x: x || 100,
                 y: y || 100,
-                rad: this.ctx.random(MIN * .5, MAX * .5),
+                rad: 0,
                 fill: this.ctx.color(fill),
                 stroke: this.ctx.color(stroke),
                 MIN: this.ctx.random(MIN - (MIN * .5), MIN + (MIN * .5)),
                 MAX: this.ctx.random(MAX - (MAX * .5), MAX + (MAX * .5)),
                 VEL: this.ctx.random(0.5, 2),
-                grow: this.ctx.random(10) > 5 ? true : false,
+                grow: true,
             }
         }
 
