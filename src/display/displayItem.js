@@ -4,6 +4,7 @@ export default class DisplayItem {
         constructor(props = { context: null }) {
             const { context } = props;
             this.ctx = context;
+            this.state = {};
         }
     
         setState(newState) {

@@ -1,21 +1,18 @@
 import DisplayItem from '../displayItem';
 
-const COLORS = [
-	[206,210,186],
-    [171,189,154],
-    [139,154,113],
-    [133,141,111],
-    [144,152,125],
-];
-const ALPHA = .5;
+const ALPHA = 15;
 const RESET = 100;
 
 export default class Background extends DisplayItem {
 
     constructor(props = {}) {
         super(props);
-        console.log(this.ctx);
+        console.log('Background:', this.state);
+
+        const { colors } = props;
+
         this.getColor = this.getColor.bind(this);
+        this.COLORS = colors.background;
 
         this.state = {
             color: this.getColor(),
@@ -24,8 +21,9 @@ export default class Background extends DisplayItem {
     }
 
     getColor() {
-        const clr = COLORS[Math.floor(this.ctx.random(0, COLORS.length))];
-        const color = this.ctx.color(clr[0], clr[1], clr[2], 2);
+
+        const clr = this.COLORS[Math.floor(this.ctx.random(0, this.COLORS.length))];
+        const color = this.ctx.color(clr[0], clr[1], clr[2], ALPHA);
         return color;
     }
 
