@@ -1,13 +1,13 @@
 import DisplayItem from '../displayItem';
 
-const ALPHA = 15;
-const RESET = 100;
+const ALPHA = 10;
+const RESET = 1000;
 
 export default class Background extends DisplayItem {
 
     constructor(props = {}) {
         super(props);
-        console.log('Background:', this.state);
+        // console.log('Background: [props:%o]', props);
 
         const { colors } = props;
 

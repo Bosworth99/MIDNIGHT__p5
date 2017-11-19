@@ -3,6 +3,7 @@ const DICT = {
     MARKET_PLACE: 'MARKET_PLACE',
     GREEN_NEUTRAL: 'GREEN_NEUTRAL',
     SWANS: 'SWANS',
+    SUNSET: 'SUNSET',
 };
 
 module.exports = {
@@ -26,5 +27,12 @@ module.exports = {
         [15,2,2],
         [212,205,205],
         [69,36,36],
+    ],
+    [DICT.SUNSET]: [
+        [62,43,56],
+        [115,45,65],
+        [152,28,45],
+        [218,124,7],
+        [244,176,6],
     ],
 };

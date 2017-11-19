@@ -9,18 +9,20 @@ export default class CirclePulse extends DisplayItem {
             const x = this.ctx.random(0, this.ctx.windowWidth);
             const y = this.ctx.random(0, this.ctx.windowHeight);
             const MIN = 10;
-            const MAX = this.ctx.windowWidth * .15;
+            const MAX = this.ctx.windowWidth * .20;
             const fill = props && props.colors && props.colors.fill;
             const stroke = props && props.colors && props.colors.stroke;
+
+            const fillAlpha = `rgba(${fill.toString()}, 01)`;
 
             this.state = {
                 x: x || 100,
                 y: y || 100,
                 rad: 0,
-                fill: this.ctx.color(fill),
+                fill: this.ctx.color(fillAlpha),
                 stroke: this.ctx.color(stroke),
-                MIN: this.ctx.random(MIN - (MIN * .5), MIN + (MIN * .5)),
-                MAX: this.ctx.random(MAX - (MAX * .5), MAX + (MAX * .5)),
+                MIN: Math.ceil(this.ctx.random(MIN - (MIN * .5), MIN + (MIN * .5))),
+                MAX: Math.ceil(this.ctx.random(MAX - (MAX * .5), MAX + (MAX * .5))),
                 VEL: this.ctx.random(0.5, 2),
                 grow: true,
             }
@@ -49,9 +51,13 @@ export default class CirclePulse extends DisplayItem {
         render() {
             const { x, y, rad, fill, stroke } = this.state;
 
+            this.ctx.push();
+            this.ctx.translate(x, y);
             this.ctx.fill(fill);
             this.ctx.stroke(stroke);
-            this.ctx.ellipse(x, y, rad, rad);
+
+            this.ctx.ellipse(0, 0, rad, rad);
+            this.ctx.pop();
         }
 
     }

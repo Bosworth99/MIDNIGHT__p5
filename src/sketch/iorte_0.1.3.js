@@ -8,10 +8,10 @@ import Line from '../display/LineChatter';
 
 import COLORS from '../config/colors';
 
-const BG = COLORS.MARKET_PLACE;
-const FILLS = COLORS.SUNSET;
-const STROKES = COLORS.SWANS;
-const COUNT = 500;
+const BG = COLORS.SUNSET;
+const FILLS = COLORS.MARKET_PLACE;
+const STROKES = COLORS.GREEN_NEUTRAL;
+const COUNT = 100;
 
 export default class Iorte extends p5 {
 
@@ -25,6 +25,7 @@ export default class Iorte extends p5 {
         this.getConfig = this.getConfig.bind(this);
         this.initializeDisplayList = this.initializeDisplayList.bind(this);
         this.populateDisplayList = this.populateDisplayList.bind(this);
+        this.drawLayer = this.drawLayer.bind(this);
 
         this.context = this;
         this.clearTimer = null;
@@ -41,6 +42,8 @@ export default class Iorte extends p5 {
 
     setup() {
         console.log('Iorte.setup', this.windowWidth, this.windowHeight);
+
+        this.angleMode(this.RADIANS); 
         this.createCanvas(this.windowWidth, this.windowHeight, p5.WEBGL);
         this.initializeDisplayList();
 
@@ -61,23 +64,33 @@ export default class Iorte extends p5 {
         const config = this.getConfig();
         this.displayList.register(new Background(config));
 
-        for (let i = 1; i < COUNT; i++) {
-
-            const ran = this.random(0,100);
-            let DisplayItem;
-
-            if (ran < 10) {
-                DisplayItem = Circle;
-            } else if (ran < 100) {
-                DisplayItem = Line;
+        const multiplier = 0.2;
+        const layers = [
+            {
+                Item: Line,
+                count: COUNT - (COUNT * multiplier),
+                config
+            },
+            {
+                Item: Circle,
+                count: COUNT * multiplier,
+                config,
             }
+        ]
 
-            this.displayList.register(new DisplayItem(config));
-        }
+        layers.forEach((layer) => this.drawLayer(layer));
+    }
+
+    drawLayer(layer = {}) {
+        // console.log('drawLayer [layer:%o]', layer);
+        const { Item, count, config } = layer;
+
+        [...Array(count)].forEach((v, i) => {
+            this.displayList.register(new Item(config));
+        });
     }
 
     getConfig() {
-
         const idx = Math.floor(this.random(0, FILLS.length));
         const stroke = STROKES[idx];
         const fill = FILLS[idx];

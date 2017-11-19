@@ -9,6 +9,8 @@ export default class DisplayList {
             }
         }
     
+        get length() { return this.state.items.length };
+
         setState(newState) {
             this.state = { ...this.state, newState };
             // console.log('DisplayList.setState [this.state:%o]', this.state);
@@ -47,7 +49,7 @@ export default class DisplayList {
             items.length = 0;
 
             this.setState({
-                items: [],
+                items,
             })        
         }
     
