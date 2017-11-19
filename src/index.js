@@ -1,7 +1,10 @@
 import './styles.css';
+// import Sketch from './sketch/default_0.1.0';
 
-import p5 from 'p5';
-import Sketch from './sketch';
+// import Sketch from './sketch/iorte_0.1.0';
+import Sketch from './sketch/iorte_0.1.2';
+
+// import Sketch from './sketch/shatterline_0.1.0';
 
 class App {
 
@@ -10,9 +13,8 @@ class App {
     }
 
     init() {
-        const sketch = new p5(Sketch)
+        const sketch = new Sketch();
     }
-    
 }
 
 const instance = new App();
