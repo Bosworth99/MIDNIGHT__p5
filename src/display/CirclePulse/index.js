@@ -13,7 +13,7 @@ export default class CirclePulse extends DisplayItem {
             const fill = props && props.colors && props.colors.fill;
             const stroke = props && props.colors && props.colors.stroke;
 
-            const fillAlpha = `rgba(${fill.toString()}, 01)`;
+            const fillAlpha = `rgba(${fill.toString()}, 0.01)`;
 
             this.state = {
                 x: x || 100,
@@ -29,8 +29,8 @@ export default class CirclePulse extends DisplayItem {
         }
 
         tick() {
-            const { x, y, MIN, MAX, VEL }  = this.state;
-            let { rad, grow } = this.state;
+            const {MIN, MAX, VEL }  = this.state;
+            let { x, y, rad, grow } = this.state;
 
             rad = grow ? rad + VEL : rad - VEL;
 
@@ -40,9 +40,14 @@ export default class CirclePulse extends DisplayItem {
 
             if (rad < MIN) {
                 grow = true;
+
+                x = this.ctx.random(0, this.ctx.windowWidth);
+                y = this.ctx.random(0, this.ctx.windowHeight);
             }
 
             this.setState({
+                x,
+                y,
                 rad,
                 grow,
             });

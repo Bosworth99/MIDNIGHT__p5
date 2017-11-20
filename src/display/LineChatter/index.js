@@ -18,8 +18,8 @@ export default class LineChatter extends DisplayItem {
             y2: y,
             fill: this.ctx.color(fill),
             stroke: this.ctx.color(stroke),
-            weight: this.ctx.random(1, 50),
-            MAX: Math.ceil(this.ctx.random(50, 100)),
+            weight: this.ctx.random(1, 5),
+            MAX: Math.ceil(this.ctx.random(50, 250)),
             VEL: Math.ceil(this.ctx.random(-1, 1)),
             grow: this.ctx.random(0, 10) > 5 ? true : false,
             rot: 1,
@@ -72,7 +72,7 @@ export default class LineChatter extends DisplayItem {
         this.ctx.strokeWeight(weight);
         this.ctx.push();
         this.ctx.translate(x1, y1);
-        this.ctx.rotate(rot);
+        // this.ctx.rotate(rot);
         this.ctx.line(0, 0, x2 - x1, y2 - y1);
         this.ctx.pop();
     }

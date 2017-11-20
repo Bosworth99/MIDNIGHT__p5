@@ -8,10 +8,10 @@ import Line from '../display/LineChatter';
 
 import COLORS from '../config/colors';
 
-const BG = COLORS.SUNSET;
-const FILLS = COLORS.MARKET_PLACE;
+const BG = COLORS.SWANS;
+const FILLS = COLORS.GREEN_NEUTRAL;
 const STROKES = COLORS.GREEN_NEUTRAL;
-const COUNT = 100;
+const COUNT = 500;
 
 export default class Iorte extends p5 {
 
@@ -49,7 +49,7 @@ export default class Iorte extends p5 {
 
         window.setInterval(
             this.initializeDisplayList,
-            10000,
+            15000,
         )
     }
 
