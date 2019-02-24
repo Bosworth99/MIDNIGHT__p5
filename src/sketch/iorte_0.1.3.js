@@ -2,9 +2,9 @@
 
 import p5 from 'p5';
 import DisplayList from '../display/displayList';
-import Background from '../display/Background';
-import Circle from '../display/CirclePulse';
-import Line from '../display/LineChatter';
+import Background from '../components/Background';
+import Circle from '../components/CirclePulse';
+import Line from '../components/LineChatter';
 
 import COLORS from '../config/colors';
 
@@ -43,7 +43,7 @@ export default class Iorte extends p5 {
     setup() {
         console.log('Iorte.setup', this.windowWidth, this.windowHeight);
 
-        this.angleMode(this.RADIANS); 
+        this.angleMode(this.RADIANS);
         this.createCanvas(this.windowWidth, this.windowHeight, p5.WEBGL);
         this.initializeDisplayList();
 

@@ -2,9 +2,9 @@
 
 import p5 from 'p5';
 import DisplayList from '../display/displayList';
-import Background from '../display/Background';
-import Circle from '../display/CirclePulse';
-import Line from '../display/LineChatter';
+import Background from '../components/Background';
+import Circle from '../components/CirclePulse';
+import Line from '../components/LineChatter';
 
 const COUNT = 1;
 

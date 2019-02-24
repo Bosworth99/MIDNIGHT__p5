@@ -2,7 +2,7 @@
 
 import p5 from 'p5';
 import DisplayList from '../display/displayList';
-import DisplayItem from '../display/CirclePulse';
+import DisplayItem from '../components/CirclePulse';
 
 const COUNT = 25;
 const MIN_RAD = 100;
@@ -32,17 +32,17 @@ export default class Iorte extends p5 {
         }
     }
 
-    setState = (newState) => {
+    setState(newState) {
         this.state = { ...this.state, ...newState };
     }
 
-    setup = () => {
+    setup() {
         console.log('Iorte.setup', this.windowWidth, this.windowHeight);
         this.createCanvas(this.windowWidth, this.windowHeight, p5.WEBGL);
         this.initializeDisplayList();
     }
 
-    initializeDisplayList = () => {
+    initializeDisplayList() {
         this.destroy();
         this.populateDisplayList();
 
@@ -51,7 +51,7 @@ export default class Iorte extends p5 {
         })
     }
 
-    populateDisplayList = () => {
+    populateDisplayList() {
         console.log('Iorte.populateDisplayList');
 
         for (let i = 0; i < COUNT; i++) {
@@ -70,7 +70,7 @@ export default class Iorte extends p5 {
         }
     }
 
-    draw = () => {
+    draw() {
         const { frame } = this.state;
         // console.log('Iorte.draw [frame:%o]', frame);
 
@@ -78,7 +78,7 @@ export default class Iorte extends p5 {
         this.render();
     }
 
-    tick = () => {
+    tick() {
         let { frame } = this.state;
 
         this.displayList.tick();
@@ -89,18 +89,18 @@ export default class Iorte extends p5 {
         })
     }
 
-    render = () => {
+    render() {
         this.background(BG)
         this.displayList.render();
     }
 
-    destroy = () => {
+    destroy() {
         this.displayList.destroy();
     }
 
     // EVENTS
 
-    windowResized = () => {
+    windowResized() {
         console.log('windowResized', this.windowWidth, this.windowHeight);
         this.resizeCanvas(this.windowWidth, this.windowHeight);
 
@@ -113,7 +113,7 @@ export default class Iorte extends p5 {
         }, 250);
     }
 
-    mousePressed = () => {
+    mousePressed() {
         console.log('mousePressed');
         this.initializeDisplayList();
     }

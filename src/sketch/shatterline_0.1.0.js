@@ -2,7 +2,7 @@
 
 import p5 from 'p5';
 import DisplayList from '../display/displayList';
-import DisplayItem from '../display/LineChatter';
+import DisplayItem from '../components/LineChatter';
 
 const COUNT = 500;
 const BG = 'rgba(50, 50, 50, 0.2)';
