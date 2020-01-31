@@ -3,7 +3,10 @@
 import p5 from 'p5';
 import DisplayList from '../display/displayList';
 import DisplayItem from '../display/LineChatter';
+import COLORS from '../config/colors';
 
+const FILLS = COLORS.MARKET_PLACE;
+const STROKES = COLORS.SWANS;
 const COUNT = 500;
 const BG = 'rgba(50, 50, 50, 0.2)';
 
@@ -51,11 +54,19 @@ export default class ShatterLine extends p5 {
         console.log('ShatterLine.populateDisplayList');
 
         const context = this.context;
+        const idx = Math.floor(this.random(0, FILLS.length));
+        const stroke = STROKES[idx];
+        const fill = FILLS[idx];
 
         for (let i = 0; i < COUNT; i++) {
 
             const config = {
                 context,
+                colors: {
+                    background: COLORS.GREEN_NEUTRAL,
+                    stroke,
+                    fill,
+                },
             }
 
             this.displayList.register(new DisplayItem(config));

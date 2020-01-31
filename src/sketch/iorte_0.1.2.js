@@ -9,8 +9,8 @@ import Line from '../display/LineChatter';
 import COLORS from '../config/colors';
 
 const FILLS = COLORS.MARKET_PLACE;
-const STROKES = COLORS.GREEN_NEUTRAL;
-const COUNT = 500;
+const STROKES = COLORS.SWANS;
+const COUNT = 350;
 
 export default class Iorte extends p5 {
 
