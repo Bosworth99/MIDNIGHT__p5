@@ -56,13 +56,11 @@ export default class CirclePulse extends DisplayItem {
     render() {
         const { x, y, rad, rad2, rot, fill, stroke } = this.state;
 
-        const divisor = this.ctx.random(0,10);
-
         this.ctx.push();
         this.ctx.fill(fill);
         this.ctx.stroke(stroke);
         this.ctx.ellipse(x, y, rad, rad);
-        this.ctx.ellipse(x, y, rad2, rad2);
+        this.ctx.ellipse(x, y, rad2, rad2 * this.ctx.random(0.0,1));
         this.ctx.rotate(rot);
         this.ctx.pop();
     }

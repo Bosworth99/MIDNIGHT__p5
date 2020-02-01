@@ -26,6 +26,8 @@ export default class Iorte extends p5 {
         this.context = this;
         this.resizeTimer = null;
         this.updateTimer = null;
+        this.colorInterval = null;
+        this.displayListTimer = null;
         this.displayList = new DisplayList();
 
         this.colorList = null;
@@ -58,22 +60,28 @@ export default class Iorte extends p5 {
         const config = this.getConfig();
         this.displayList.register(new Background(config));
 
-        const count = this.random(250, 750);
+        const max = this.random(250, 750);
         const density = this.random(2, 5);
+        let count = 0;
 
-        for (let i = 0; i < count; i++) {
-
-            const ran = this.random(0,100);
-            let DisplayItem;
-
-            if (ran < density) {
-                DisplayItem = Circle;
-            } else {
-                DisplayItem = Line;
-            }
-
-            this.displayList.register(new DisplayItem(config));
+        if (this.displayListTimer) {
+            window.clearInterval(this.displayListTimer);
         }
+        this.displayListTimer = window.setInterval(() => {
+            if (count < max) {
+                const ran = this.random(0,100);
+                let DisplayItem;
+    
+                if (ran < density) {
+                    DisplayItem = Circle;
+                } else {
+                    DisplayItem = Line;
+                }
+    
+                this.displayList.register(new DisplayItem(config));
+                count++;
+            }
+        }, 10);
     }
 
     getConfig() {

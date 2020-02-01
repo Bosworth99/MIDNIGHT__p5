@@ -10,7 +10,7 @@ export default class LineChatter extends DisplayItem {
         const VEL = this.ctx.random(.01, 2);
         const rot = this.ctx.random(1, 2);
 
-        const length = this.ctx.random(0, 200);
+        const length = this.ctx.random(0, 500);
         const x1 = this.ctx.random(0, this.ctx.windowWidth);
         const y1 = this.ctx.random(0, this.ctx.windowHeight);
         const x2 = x1 + this.ctx.random(0, length);
@@ -49,17 +49,31 @@ export default class LineChatter extends DisplayItem {
         
         const dist = this.ctx.dist( x1, y1, x2, y2 );
 
+        // if (grow) {
+        //     x1 = x1 + VEL;
+        //     y1 = y1 + VEL;            
+        //     x2 = x2 - VEL;
+        //     y2 = y2 - VEL;
+        // } else {
+        //     x1 = x1 - VEL;
+        //     y1 = y1 - VEL;   
+        //     x2 = x2 + VEL;
+        //     y2 = y2 + VEL;
+        // }
+
         if (grow) {
-            x1 = x1 + VEL;
-            y1 = y1 + VEL;            
-            x2 = x2 - VEL;
-            y2 = y2 - VEL;
+            x1 = this.ctx.random(0,10) > 5 ? x1 + VEL : x1 - VEL;
+            y1 = this.ctx.random(0,10) > 5 ? y1 + VEL : y1 - VEL;            
+            x2 = this.ctx.random(0,10) > 5 ? x2 + VEL : x2 - VEL;
+            y2 = this.ctx.random(0,10) > 5 ? y2 + VEL : y2 - VEL;
         } else {
             x1 = x1 - VEL;
             y1 = y1 - VEL;   
             x2 = x2 + VEL;
             y2 = y2 + VEL;
         }
+
+
 
         if (dist > MAX) {
             grow = false;
