@@ -8,9 +8,9 @@ import Line from '../display/LineChatter';
 
 import COLORS from '../config/colors';
 
-const FILLS = COLORS.MARKET_PLACE;
-const STROKES = COLORS.SWANS;
-const COUNT = 350;
+const FILLS = COLORS.SWANS;
+const STROKES = COLORS.GREEN_NEUTRAL;
+const COUNT = 700;
 
 export default class Iorte extends p5 {
 
@@ -26,7 +26,8 @@ export default class Iorte extends p5 {
         this.populateDisplayList = this.populateDisplayList.bind(this);
 
         this.context = this;
-        this.clearTimer = null;
+        this.resizeTimer = null;
+        this.updateTimer = null;
         this.displayList = new DisplayList();
 
         this.state = {
@@ -43,10 +44,7 @@ export default class Iorte extends p5 {
         this.createCanvas(this.windowWidth, this.windowHeight, p5.WEBGL);
         this.initializeDisplayList();
 
-        window.setInterval(
-            this.initializeDisplayList,
-            10000,
-        )
+
     }
 
     initializeDisplayList() {
@@ -60,14 +58,14 @@ export default class Iorte extends p5 {
         const config = this.getConfig();
         this.displayList.register(new Background(config));
 
-        for (let i = 1; i < COUNT; i++) {
+        for (let i = 0; i < COUNT; i++) {
 
             const ran = this.random(0,100);
             let DisplayItem;
 
-            if (ran < 10) {
+            if (ran < 3) {
                 DisplayItem = Circle;
-            } else if (ran < 100) {
+            } else {
                 DisplayItem = Line;
             }
 
@@ -84,7 +82,7 @@ export default class Iorte extends p5 {
         const config = {
             context: this.context,
             colors: {
-                background: COLORS.GREEN_NEUTRAL,
+                background: COLORS.MARKET_PLACE,
                 stroke,
                 fill,
             },
@@ -116,13 +114,24 @@ export default class Iorte extends p5 {
         console.log('windowResized', this.windowWidth, this.windowHeight);
         this.resizeCanvas(this.windowWidth, this.windowHeight);
 
-        if (this.clearTimer) {
-            window.clearTimeout(this.clearTimer);
+        if (this.resizeTimer) {
+            window.clearTimeout(this.resizeTimer);
         }
 
-        this.clearTimer = window.setTimeout(() => {
+        this.resizeTimer = window.setTimeout(() => {
             this.initializeDisplayList();
         }, 250);
+    }
+
+    setInterval() {
+        if (this.updateTimer) {
+            window.clearTimeout(this.updateTimer);
+        }
+
+        this.updateTimer = window.setInterval(
+            this.initializeDisplayList,
+            20000,
+        )
     }
 
     mousePressed() {
