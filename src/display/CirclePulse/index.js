@@ -35,42 +35,16 @@ export default class CirclePulse extends DisplayItem {
         rad = grow ? rad + VEL : rad - VEL;
         rad2 = grow ? rad2 + VEL : rad2 - VEL;
 
-<<<<<<< HEAD
-            if (rad < MIN) {
-                grow = true;
-
-                x = this.ctx.random(0, this.ctx.windowWidth);
-                y = this.ctx.random(0, this.ctx.windowHeight);
-            }
-
-            this.setState({
-                x,
-                y,
-                rad,
-                grow,
-            });
-=======
         if (rad > MAX) {
             grow = false;
         };
 
         if (rad < MIN) {
             grow = true;
->>>>>>> master
         }
 
         rot = (Math.PI * 20);
 
-<<<<<<< HEAD
-            this.ctx.push();
-            this.ctx.translate(x, y);
-            this.ctx.fill(fill);
-            this.ctx.stroke(stroke);
-
-            this.ctx.ellipse(0, 0, rad, rad);
-            this.ctx.pop();
-        }
-=======
         this.setState({
             rad,
             rad2,
@@ -92,6 +66,5 @@ export default class CirclePulse extends DisplayItem {
         this.ctx.rotate(rot);
         this.ctx.pop();
     }
->>>>>>> master
 
 }

@@ -1,5 +1,5 @@
 import './styles.css';
-import Sketch from './sketch/midnight_0.1.0';
+import Sketch from './sketch/midnight';
 
 class App {
 

@@ -2,21 +2,19 @@
 
 import p5 from 'p5';
 import DisplayList from '../display/displayList';
-import Background from '../display/Background';
+import { Background, getSeed as getBackgroundSeed } from '../display/Background';
 import Circle from '../display/CirclePulse';
 import Line from '../display/LineChatter';
 
-import COLORS from '../config/colors';
+import { COLORS, LIST as CLIST } from '../config/colors';
 
-const FILLS = COLORS.SWANS;
-const STROKES = COLORS.GREEN_NEUTRAL;
-const COUNT = 700;
+const DISPLAY_UPDATE_INTERVAL = 10000;
+const COLOR_UPDATE_INTERVAL = 20000; 
 
 export default class Iorte extends p5 {
 
     constructor(sketch = ()=>{}, node = false, sync = false) {
         super(sketch, node, sync);
-        console.log('Iorte.constructor [this:%o]', this, FILLS);
 
         this.setup = this.setup.bind(this);
         this.draw = this.draw.bind(this);
@@ -30,6 +28,10 @@ export default class Iorte extends p5 {
         this.updateTimer = null;
         this.displayList = new DisplayList();
 
+        this.colorList = null;
+        this.flColor = null;
+        this.skColor = null;
+
         this.state = {
             frame: 0,
         }
@@ -40,30 +42,31 @@ export default class Iorte extends p5 {
     }
 
     setup() {
-        console.log('Iorte.setup', this.windowWidth, this.windowHeight);
         this.createCanvas(this.windowWidth, this.windowHeight, p5.WEBGL);
+        this.updateColorList()
         this.initializeDisplayList();
-
-
     }
 
     initializeDisplayList() {
         this.destroy();
         this.populateDisplayList();
+        this.setColorInterval();
+        this.setUpdateInterval();
     }
 
     populateDisplayList() {
-        console.log('Iorte.populateDisplayList');
-
         const config = this.getConfig();
         this.displayList.register(new Background(config));
 
-        for (let i = 0; i < COUNT; i++) {
+        const count = this.random(250, 750);
+        const density = this.random(2, 5);
+
+        for (let i = 0; i < count; i++) {
 
             const ran = this.random(0,100);
             let DisplayItem;
 
-            if (ran < 3) {
+            if (ran < density) {
                 DisplayItem = Circle;
             } else {
                 DisplayItem = Line;
@@ -74,26 +77,27 @@ export default class Iorte extends p5 {
     }
 
     getConfig() {
-
-        const idx = Math.floor(this.random(0, FILLS.length));
-        const stroke = STROKES[idx];
-        const fill = FILLS[idx];
-
         const config = {
             context: this.context,
             colors: {
-                background: COLORS.MARKET_PLACE,
-                stroke,
-                fill,
+                list: this.colorList,
+                stroke: this.skColor,
+                fill: this.flColor,
             },
         }
-
         return config;
+    }
+
+    updateColorList() {
+        const type = CLIST[Math.floor(this.random(0, CLIST.length))];
+        this.colorList = COLORS[type];
+        this.skColor = this.colorList[Math.floor(this.random(0, this.colorList.length))];
+        this.flColor = this.colorList[Math.floor(this.random(0, this.colorList.length))];
     }
 
     draw() {
         this.tick();
-        this.render();
+        this.render(); 
     }
 
     tick() {
@@ -123,19 +127,29 @@ export default class Iorte extends p5 {
         }, 250);
     }
 
-    setInterval() {
-        if (this.updateTimer) {
-            window.clearTimeout(this.updateTimer);
+    setColorInterval() {
+        if (this.colorInterval) {
+            window.clearInterval(this.colorInterval);
         }
 
-        this.updateTimer = window.setInterval(
-            this.initializeDisplayList,
-            20000,
-        )
+        this.colorInterval = window.setInterval(() => {
+            this.updateColorList();
+        }, COLOR_UPDATE_INTERVAL);      
+    }
+
+    setUpdateInterval() {
+        if (this.updateTimer) {
+            window.clearInterval(this.updateTimer);
+        }
+
+        this.updateTimer = window.setInterval(() => {
+            this.initializeDisplayList();
+        }, DISPLAY_UPDATE_INTERVAL);
     }
 
     mousePressed() {
         console.log('mousePressed');
         this.initializeDisplayList();
+        this.updateColorList();
     }
 }
