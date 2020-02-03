@@ -32,8 +32,8 @@ export default class LineChatter extends DisplayItem {
             y1: y1,
             x2: x2,
             y2: y2,
-            fill: this.ctx.color([...fill, this.ctx.random(0, 75)]),
-            stroke: this.ctx.color([...stroke, this.ctx.random(0, 75)]),
+            fill: this.ctx.color([...fill, this.ctx.random(0, 50)]),
+            stroke: this.ctx.color([...stroke, this.ctx.random(0, 150)]),
             weight: this.ctx.random(0.1, 5),
             MAX,
             MIN,
@@ -62,18 +62,16 @@ export default class LineChatter extends DisplayItem {
         // }
 
         if (grow) {
-            x1 = this.ctx.random(0,10) > 5 ? x1 + VEL : x1 - VEL;
-            y1 = this.ctx.random(0,10) > 5 ? y1 + VEL : y1 - VEL;            
-            x2 = this.ctx.random(0,10) > 5 ? x2 + VEL : x2 - VEL;
-            y2 = this.ctx.random(0,10) > 5 ? y2 + VEL : y2 - VEL;
+            x1 = this.ctx.random(0,10) > 8 ? x1 - VEL : x1 + VEL;
+            y1 = this.ctx.random(0,10) > 8 ? y1 - VEL : y1 + VEL;            
+            x2 = this.ctx.random(0,10) > 8 ? x2 + VEL : x2 - VEL;
+            y2 = this.ctx.random(0,10) > 8 ? y2 + VEL : y2 - VEL;
         } else {
-            x1 = x1 - VEL;
-            y1 = y1 - VEL;   
-            x2 = x2 + VEL;
-            y2 = y2 + VEL;
+            x1 = this.ctx.random(0,10) > 8 ? x1 + VEL : x1 - VEL;
+            y1 = this.ctx.random(0,10) > 8 ? y1 + VEL : y1 - VEL;            
+            x2 = this.ctx.random(0,10) > 8 ? x2 - VEL : x2 + VEL;
+            y2 = this.ctx.random(0,10) > 8 ? y2 - VEL : y2 + VEL;
         }
-
-
 
         if (dist > MAX) {
             grow = false;
@@ -81,7 +79,7 @@ export default class LineChatter extends DisplayItem {
             grow = true;
         }
 
-        rot *= VEL;
+        rot += VEL;
 
         this.setState({
             x1, y1, x2, y2, grow, rot,
@@ -92,8 +90,8 @@ export default class LineChatter extends DisplayItem {
         const { x1, x2, y1, y2, stroke, fill, weight, rot } = this.state;
         this.ctx.push();
         this.ctx.fill(fill);
-        this.ctx.stroke(stroke);
         this.ctx.strokeWeight(weight);
+        this.ctx.stroke(stroke);
         this.ctx.line(x1, y1, x2, y2);
         this.ctx.rotate(rot);
         this.ctx.pop();

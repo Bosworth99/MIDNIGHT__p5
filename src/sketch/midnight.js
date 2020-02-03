@@ -9,7 +9,7 @@ import Line from '../display/LineChatter';
 import { COLORS, LIST as CLIST } from '../config/colors';
 
 const DISPLAY_UPDATE_INTERVAL = 10000;
-const COLOR_UPDATE_INTERVAL = 20000; 
+const COLOR_UPDATE_INTERVAL = 1000; 
 
 export default class Iorte extends p5 {
 
@@ -60,8 +60,8 @@ export default class Iorte extends p5 {
         const config = this.getConfig();
         this.displayList.register(new Background(config));
 
-        const max = this.random(250, 750);
-        const density = this.random(2, 5);
+        const max = this.random(150, 350);
+        const density = this.random(2, 7);
         let count = 0;
 
         if (this.displayListTimer) {
@@ -81,7 +81,7 @@ export default class Iorte extends p5 {
                 this.displayList.register(new DisplayItem(config));
                 count++;
             }
-        }, 10);
+        }, 25);
     }
 
     getConfig() {

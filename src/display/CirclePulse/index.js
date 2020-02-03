@@ -20,7 +20,8 @@ export default class CirclePulse extends DisplayItem {
             rad2: this.ctx.random(MIN,MAX),
             rot: 0,
             fill: this.ctx.color([...fill, this.ctx.random(0, 10)]),
-            stroke: this.ctx.color(stroke),
+            stroke: this.ctx.color([...stroke, this.ctx.random(0, 200)]),
+            weight: this.ctx.random(0.1, 3),
             MIN: this.ctx.random(MIN - (MIN * .5), MIN + (MIN * .5)),
             MAX: this.ctx.random(MAX - (MAX * .5), MAX + (MAX * .5)),
             VEL: this.ctx.random(0.1, 1),
@@ -54,10 +55,11 @@ export default class CirclePulse extends DisplayItem {
     }
 
     render() {
-        const { x, y, rad, rad2, rot, fill, stroke } = this.state;
+        const { x, y, rad, rad2, rot, fill, stroke, weight } = this.state;
 
         this.ctx.push();
         this.ctx.fill(fill);
+        this.ctx.strokeWeight(weight);
         this.ctx.stroke(stroke);
         this.ctx.ellipse(x, y, rad, rad);
         this.ctx.ellipse(x, y, rad2, rad2 * this.ctx.random(0.0,1));
