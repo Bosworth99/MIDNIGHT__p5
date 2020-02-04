@@ -2,16 +2,20 @@ import DisplayItem from '../displayItem';
 
 export default class CirclePulse extends DisplayItem {
 
-    constructor(props = {}) {
-        super(props);
-        // console.log('DisplayItem.constructor', props);
+    constructor(config = {}) {
+        super(config);
+        // console.log('DisplayItem.constructor', config);
 
         const x = this.ctx.random(0, this.ctx.windowWidth);
         const y = this.ctx.random(0, this.ctx.windowHeight);
         const MIN = this.ctx.windowWidth * .05;
         const MAX = this.ctx.windowWidth * .2;
-        const fill = props && props.colors && props.colors.fill;
-        const stroke = props && props.colors && props.colors.stroke;
+        // const fill = config && config.colors && config.colors.fill;
+        // const stroke = config && config.colors && config.colors.stroke;
+
+        const colorList = config.colors.list || [];
+        const fill = colorList[Math.floor(this.ctx.random(0, colorList.length))];
+        const stroke = colorList[Math.floor(this.ctx.random(0, colorList.length))];
 
         this.state = {
             x: x || 100,

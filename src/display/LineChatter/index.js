@@ -2,15 +2,15 @@ import DisplayItem from '../displayItem';
 
 export default class LineChatter extends DisplayItem {
 
-    constructor(props = {}) {
-        super(props);
+    constructor(config = {}) {
+        super(config);
 
-        const MAX = this.ctx.random(100, 500);
-        const MIN = this.ctx.random(50, 100);
-        const VEL = this.ctx.random(.01, 2);
+        const MAX = this.ctx.random(500, 1000);
+        const MIN = this.ctx.random(250, 500);
+        const VEL = this.ctx.random(.2, .8);
         const rot = this.ctx.random(1, 2);
 
-        const length = this.ctx.random(0, 500);
+        const length = this.ctx.random(250, 750);
         const x1 = this.ctx.random(0, this.ctx.windowWidth);
         const y1 = this.ctx.random(0, this.ctx.windowHeight);
         const x2 = x1 + this.ctx.random(0, length);
@@ -24,8 +24,12 @@ export default class LineChatter extends DisplayItem {
             grow = true;
         }
 
-        const fill = props && props.colors && props.colors.fill;
-        const stroke = props && props.colors && props.colors.fill;
+        // const fill = config && config.colors && config.colors.fill;
+        // const stroke = config && config.colors && config.colors.fill;
+
+        const colorList = config.colors.list || [];
+        const fill = colorList[Math.floor(this.ctx.random(0, colorList.length))];
+        const stroke = colorList[Math.floor(this.ctx.random(0, colorList.length))];
 
         this.state = {
             x1: x1,
@@ -33,8 +37,8 @@ export default class LineChatter extends DisplayItem {
             x2: x2,
             y2: y2,
             fill: this.ctx.color([...fill, this.ctx.random(0, 50)]),
-            stroke: this.ctx.color([...stroke, this.ctx.random(0, 150)]),
-            weight: this.ctx.random(0.1, 5),
+            stroke: this.ctx.color([...stroke, this.ctx.random(0, 100)]),
+            weight: this.ctx.random(0.1, 3),
             MAX,
             MIN,
             VEL,
@@ -62,15 +66,15 @@ export default class LineChatter extends DisplayItem {
         // }
 
         if (grow) {
-            x1 = this.ctx.random(0,10) > 8 ? x1 - VEL : x1 + VEL;
-            y1 = this.ctx.random(0,10) > 8 ? y1 - VEL : y1 + VEL;            
-            x2 = this.ctx.random(0,10) > 8 ? x2 + VEL : x2 - VEL;
-            y2 = this.ctx.random(0,10) > 8 ? y2 + VEL : y2 - VEL;
+            x1 = this.ctx.random(0,10) > 6 ? x1 - VEL : x1 + VEL;
+            y1 = this.ctx.random(0,10) > 6 ? y1 - VEL : y1 + VEL;            
+            x2 = this.ctx.random(0,10) > 6 ? x2 + VEL : x2 - VEL;
+            y2 = this.ctx.random(0,10) > 6 ? y2 + VEL : y2 - VEL;
         } else {
-            x1 = this.ctx.random(0,10) > 8 ? x1 + VEL : x1 - VEL;
-            y1 = this.ctx.random(0,10) > 8 ? y1 + VEL : y1 - VEL;            
-            x2 = this.ctx.random(0,10) > 8 ? x2 - VEL : x2 + VEL;
-            y2 = this.ctx.random(0,10) > 8 ? y2 - VEL : y2 + VEL;
+            x1 = this.ctx.random(0,10) > 6 ? x1 + VEL : x1 - VEL;
+            y1 = this.ctx.random(0,10) > 6 ? y1 + VEL : y1 - VEL;            
+            x2 = this.ctx.random(0,10) > 6 ? x2 - VEL : x2 + VEL;
+            y2 = this.ctx.random(0,10) > 6 ? y2 - VEL : y2 + VEL;
         }
 
         if (dist > MAX) {

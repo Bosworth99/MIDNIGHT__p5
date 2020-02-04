@@ -1,7 +1,7 @@
 import DisplayItem from '../displayItem';
 
 const ALPHA = 3;
-const RESET = 200;
+const RESET = 1000;
 
 export default class Background extends DisplayItem {
 
